@@ -1,0 +1,13 @@
+@server = http://localhost:4004
+
+### new default
+GET {{server}}/odata/v4/browse
+
+###old default
+GET {{server}}/browse
+
+### served as rest
+GET {{server}}/rest/browse
+
+### default without annotation
+GET {{server}}/odata/v4/catalog
