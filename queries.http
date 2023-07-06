@@ -1,0 +1,92 @@
+@endpoint = http://localhost:4004/graphql
+
+### List all author names
+POST {{endpoint}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query {
+  AdminService {
+    Authors {
+      nodes {
+        name
+      }
+    }
+  }
+}
+
+### List all authors and the books they wrote (with totalCount)
+POST {{endpoint}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query {
+  AdminService {
+    Authors {
+      totalCount
+      nodes {
+        name
+        books {
+          nodes {
+            title
+          }
+        }
+      }
+    }
+  }
+}
+
+### Filter for a book with ID = 201
+POST {{endpoint}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query {
+  AdminService {
+    Books(filter: {ID: { eq: 201}}) {
+      nodes {
+        ID
+        title
+      }
+    }
+  }
+}
+
+### Filter for a book with ID = 201 (with filter as a variable)
+POST {{endpoint}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query ($filter: [AdminService_Books_filter]) {
+  AdminService {
+    Books(filter: $filter) {
+      nodes {
+        ID
+        title
+      }
+    }
+  }
+}
+
+{ "filter": {
+    "ID": {
+      "eq": 201
+    }
+  }
+}
+
+### Filter for books with ID > 250 AND ID < 260
+POST {{endpoint}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query {
+  AdminService {
+    Books(filter: {ID: {gt: 250, lt: 260}}) {
+      nodes {
+        ID
+        title
+      }
+    }
+  }
+}
