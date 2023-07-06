@@ -1,0 +1,64 @@
+@endpoint = http://localhost:4004/graphql
+
+### Create a new author
+POST {{endpoint}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  AdminService {
+    Authors {
+      create(input: {ID: 190, name: "Alice"}) {
+        name
+      }
+    }
+  }
+}
+
+### Create multiple authors at once
+POST {{endpoint}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  AdminService {
+    Authors {
+      create(input: [
+        {ID: 191, name: "Bob"},
+        {ID: 192, name: "Charlie"}
+      ]) {
+        name
+      }
+    }
+  }
+}
+
+### Update all books where title contains "Heights" to have a stock value of 0
+POST {{endpoint}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  AdminService {
+    Books {
+      update(filter: {title: {contains: "Heights"}}, input: {stock: 0}) {
+        ID
+        title
+        stock
+      }
+    }
+  }
+}
+
+### Delete all books where title contains "Heights"
+POST {{endpoint}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  AdminService {
+    Books {
+      delete(filter: {title: {contains: "Heights"}})
+    }
+  }
+}
