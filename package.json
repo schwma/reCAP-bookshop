@@ -13,6 +13,7 @@
     "@cap-js/sqlite": "*"
   },
   "dependencies": {
+    "@cap-js/graphql": "^0.6.1",
     "@sap/cds": ">=5.9",
     "express": "^4.17.1",
     "passport": ">=0.4.1"
